@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #taskInput {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #addButton {
+            font-size: 16px;
+            padding: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .deleteButton {
+            background-color: #ff3333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addButton">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+
+    <script>
+        // JavaScript code
+        var taskInput = document.getElementById("taskInput");
+        var addButton = document.getElementById("addButton");
+        var taskList = document.getElementById("taskList");
+
+        addButton.addEventListener("click", function() {
+            var taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                var li = document.createElement("li");
+                li.innerHTML = taskText + '<button class="deleteButton">Delete</button>';
+                taskList.appendChild(li);
+                taskInput.value = "";
+
+                // Add event listener to the delete button
+                li.querySelector(".deleteButton").addEventListener("click", function() {
+                    taskList.removeChild(li);
+                });
+            }
+        });
+
+        taskInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                addButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

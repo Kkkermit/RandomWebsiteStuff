@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chess Game</title>
+    <style>
+        /* Add your CSS styles for the chessboard here */
+    </style>
+</head>
+<body>
+    <h1>Chess Game</h1>
+    <div id="board" style="width: 400px;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.11.0/chess.js"></script>
+    <script>
+        // JavaScript code
+        var board,
+            game = new Chess();
+
+        // Function to update the board
+        var updateBoard = function() {
+            // Add code here to update the chessboard UI
+        };
+
+        // Function for the bot to make a move
+        var makeBotMove = function() {
+            var moves = game.ugly_moves();
+            var move = moves[Math.floor(Math.random() * moves.length)];
+            game.ugly_move(move);
+            updateBoard();
+        };
+
+        // Initialize the chessboard
+        var init = function() {
+            var boardConfig = {
+                draggable: true,
+                position: 'start',
+                onDrop: function (source, target) {
+                    var move = game.move({
+                        from: source,
+                        to: target,
+                        promotion: 'q'
+                    });
+
+                    removeGreySquares();
+                    board.position(game.fen());
+
+                    if (game.game_over()) {
+                        alert('Game over');
+                    } else {
+                        window.setTimeout(makeBotMove, 250);
+                    }
+                },
+                onMouseoverSquare: function(square, piece) {
+                    var moves = game.legal_moves({
+                        square: square,
+                        verbose: true
+                    });
+
+                    if (moves.length === 0) return;
+
+                    greySquare(square);
+
+                    for (var i = 0; i < moves.length; i++) {
+                        greySquare(moves[i].to);
+                    }
+                },
+                onMouseoutSquare: removeGreySquares,
+                onSnapEnd: updateBoard
+            };
+
+            board = ChessBoard('board', boardConfig);
+        };
+
+        // Highlight legal moves
+        var greySquare = function(square) {
+            var squareEl = $('#board .square-' + square);
+
+            var background = '#a9a9a9';
+            if (squareEl.hasClass('black-3c85d')) {
+                background = '#696969';
+            }
+
+            squareEl.css('background', background);
+        };
+
+        // Remove highlights
+        var removeGreySquares = function() {
+            $('#board .square-55d63').css('background', '');
+        };
+
+        // Initialize the board
+        init();
+    </script>
+</body>
+</html>

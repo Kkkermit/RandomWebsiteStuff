@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced JavaScript Website</title>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <p>Enter a city name to get the current weather:</p>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button id="getWeatherButton">Get Weather</button>
+    <div id="weatherInfo"></div>
+
+    <script>
+        // Function to fetch weather data from an API
+        async function getWeather(city) {
+            const config = require('')
+            const apiKey = '87d8e79c79adee4c0842fffa7859ec92'; // Replace with your API key
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const weatherInfo = document.getElementById("weatherInfo");
+                    weatherInfo.innerHTML = `
+                        <h2>Weather in ${data.name}, ${data.sys.country}</h2>
+                        <p>Temperature: ${data.main.temp}°C</p>
+                        <p>Weather: ${data.weather[0].description}</p>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                console.error(error.message);
+                alert("Error fetching weather data. Please try again.");
+            }
+        }
+
+        // Event listener for the "Get Weather" button
+        document.getElementById("getWeatherButton").addEventListener("click", function() {
+            const cityInput = document.getElementById("cityInput");
+            const city = cityInput.value.trim();
+
+            if (city !== "") {
+                getWeather(city);
+                cityInput.value = "";
+            } else {
+                alert("Please enter a city name.");
+            }
+        });
+    </script>
+</body>
+</html>

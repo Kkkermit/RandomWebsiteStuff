@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kanye West Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #quoteContainer {
+            text-align: center;
+            padding: 20px;
+        }
+        #quoteText {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #newQuoteButton {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kanye West Quotes</h1>
+    <div id="quoteContainer">
+        <p id="quoteText">Click the button to get a Kanye West quote.</p>
+        <button id="newQuoteButton">New Quote</button>
+    </div>
+
+    <script>
+        // JavaScript code
+        var quoteText = document.getElementById("quoteText");
+        var newQuoteButton = document.getElementById("newQuoteButton");
+
+        // Function to fetch and display a random Kanye West quote
+        function fetchKanyeQuote() {
+            fetch('https://api.kanye.rest')
+                .then(response => response.json())
+                .then(data => {
+                    quoteText.textContent = data.quote;
+                })
+                .catch(error => console.error('Error fetching quote:', error));
+        }
+
+        // Event listener for the "New Quote" button
+        newQuoteButton.addEventListener("click", fetchKanyeQuote);
+
+        fetchKanyeQuote();
+    </script>
+</body>
+</html>

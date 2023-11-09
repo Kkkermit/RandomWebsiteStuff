@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Master Oogway Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #oogwayContainer {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 20px auto;
+        }
+        #oogwayImage {
+            width: 100%;
+            height: auto;
+        }
+        #quoteInput {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #addQuoteButton {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #quoteList {
+            list-style: none;
+            padding: 0;
+        }
+        .quote {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Write Quotes for Master Oogway</h1>
+    <div id="oogwayContainer">
+        <img id="oogwayImage" src="oogway.png" alt="Master Oogway">
+    </div>
+    <div>
+        <input type="text" id="quoteInput" placeholder="Write a quote for Master Oogway">
+        <button id="addQuoteButton">Add Quote</button>
+    </div>
+    <ul id="quoteList"></ul>
+
+    <script>
+        // JavaScript code
+        var quoteInput = document.getElementById("quoteInput");
+        var addQuoteButton = document.getElementById("addQuoteButton");
+        var quoteList = document.getElementById("quoteList");
+
+        // Function to add a quote
+        function addQuote() {
+            var quoteText = quoteInput.value.trim();
+            if (quoteText !== "") {
+                var li = document.createElement("li");
+                li.classList.add("quote");
+                li.textContent = quoteText;
+                quoteList.appendChild(li);
+                quoteInput.value = "";
+            }
+        }
+
+        // Event listener for the "Add Quote" button
+        addQuoteButton.addEventListener("click", addQuote);
+
+        // Handle pressing Enter key to add a quote
+        quoteInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                addQuote();
+            }
+        });
+    </script>
+</body>
+</html>

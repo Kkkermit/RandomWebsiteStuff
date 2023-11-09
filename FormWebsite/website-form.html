@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced JavaScript Website</title>
+    <style>
+        /* CSS styles for the webpage */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Advanced Website</h1>
+        <p>This is an example of an advanced webpage with JavaScript.</p>
+        
+        <h2>Dynamic Content</h2>
+        <p id="dynamicText">This text will change dynamically.</p>
+        <button id="changeTextButton">Change Text</button>
+
+        <h2>Form</h2>
+        <form id="myForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <button type="submit">Submit</button>
+        </form>
+        
+        <div id="formOutput"></div>
+    </div>
+
+    <script>
+        // JavaScript code
+        // Get elements by their IDs
+        var dynamicText = document.getElementById("dynamicText");
+        var changeTextButton = document.getElementById("changeTextButton");
+        var myForm = document.getElementById("myForm");
+        var formOutput = document.getElementById("formOutput");
+
+        // Function to change the dynamic text
+        changeTextButton.addEventListener("click", function() {
+            dynamicText.textContent = "Text changed dynamically!";
+        });
+
+        // Function to handle form submission
+        myForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+
+            // Display the form input in the formOutput div
+            formOutput.innerHTML = `
+                <p>Form Submitted Successfully!</p>
+                <p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

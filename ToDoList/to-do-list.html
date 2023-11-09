@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced JavaScript Website</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <form id="todoForm">
+        <input type="text" id="taskInput" placeholder="Enter a task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul id="taskList">
+        <!-- Tasks will be dynamically added here -->
+    </ul>
+
+    <script>
+        // JavaScript code
+        const todoForm = document.getElementById("todoForm");
+        const taskInput = document.getElementById("taskInput");
+        const taskList = document.getElementById("taskList");
+
+        // Load tasks from local storage on page load
+        window.addEventListener("load", loadTasks);
+
+        // Function to add a task
+        function addTask(taskText) {
+            const taskItem = document.createElement("li");
+            taskItem.textContent = taskText;
+            taskList.appendChild(taskItem);
+            taskInput.value = "";
+
+            // Store tasks in local storage
+            saveTasks();
+        }
+
+        // Function to save tasks in local storage
+        function saveTasks() {
+            const tasks = Array.from(taskList.children).map(task => task.textContent);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        // Function to load tasks from local storage
+        function loadTasks() {
+            const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            savedTasks.forEach(taskText => addTask(taskText));
+        }
+
+        // Event listener for form submission
+        todoForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                addTask(taskText);
+            }
+        });
+    </script>
+</body>
+</html>
